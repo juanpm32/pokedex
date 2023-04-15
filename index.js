@@ -1,8 +1,9 @@
 const dataPokemon = document.querySelector("#data-pokemon");
 const namePokemonDetalle = document.querySelector("#name-pokemon-detalle");
-const modal = document.getElementById("exampleModal");
+const imagePokemonDetalle = document.querySelector("#image");
+const modal = new bootstrap.Modal(document.getElementById("exampleModal"), {});
 
-const createCards = async (pokemones = []) => {
+const createCards = (pokemones = []) => {
     pokemones.forEach((pokemon, index) => {
 
         obtenerImagenPokemones(index).then((data) => {
@@ -21,15 +22,15 @@ const createCards = async (pokemones = []) => {
 }
 
 const asignaDetallePokemon = (dato) => {
-    namePokemonDetalle.innerHTML = "Noma";
+    namePokemonDetalle.innerHTML = "Detalle de pokemon " + dato.species.name.toUpperCase();
+    image.src = dato.sprites.other.dream_world.front_default;
 }
 
 const obtenerDetallePokemon = async (id) => {
-    //const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id + 1}`);
-    //const data = await response.json();
-    modal.style.display = "block";
-    modal.classList.add("show", "fade");
-    //asignaDetallePokemon(data);
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id + 1}`);
+    const data = await response.json();
+    modal.show();
+    asignaDetallePokemon(data);
 }
 
 
